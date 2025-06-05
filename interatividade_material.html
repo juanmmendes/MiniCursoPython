@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Avançado – Interatividade & Material de Apoio</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <!-- PrismJS highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+  <!-- Estilo Consistente -->
+  <style>
+    /* RESET & VARS */
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --primary-color:#3776ab;--secondary-color:#ffd43b;--dark-bg:#0d1117;
+      --card-bg:#161b22;--text-primary:#f0f6fc;--text-secondary:#8b949e;
+      --accent-blue:#58a6ff;--accent-green:#3fb950;
+      --gradient-1:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    }
+    body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;background:var(--dark-bg);color:var(--text-primary);line-height:1.6;overflow-x:hidden;}
+    /* Header */
+    .header{background:linear-gradient(135deg,var(--primary-color),#2e5f8a);padding:2rem 0;text-align:center;}
+    .header h1{font-size:2.6rem;font-weight:bold;margin-bottom:.5rem;text-shadow:2px 2px 4px rgba(0,0,0,.3);} 
+    .header p{color:var(--secondary-color);} 
+    /* Nav */
+    .nav{background:var(--card-bg);padding:1rem 0;position:sticky;top:0;z-index:1000;border-bottom:1px solid #30363d;backdrop-filter:blur(8px);} 
+    .nav-container{max-width:1200px;margin:0 auto;display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+    .nav-item{color:var(--text-secondary);padding:.5rem 1rem;border-radius:25px;transition:.3s;font-weight:500;position:relative;overflow:hidden;text-decoration:none;}
+    .nav-item::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gradient-1);transition:left .3s;z-index:-1;}
+    .nav-item:hover{color:#fff;transform:translateY(-2px);} .nav-item:hover::before{left:0;}
+    /* Section */
+    .section{max-width:1200px;margin:4rem auto;padding:0 2rem;opacity:0;transform:translateY(30px);animation:fadeInUp .8s forwards;}
+    @keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+    .section h2{font-size:2.1rem;margin-bottom:2rem;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;}
+    .section h2::after{content:"";position:absolute;bottom:-10px;left:0;width:50px;height:3px;background:var(--gradient-1);border-radius:2px;}
+    /* Card Grid */
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;}
+    .card{background:var(--card-bg);border-radius:15px;padding:2rem;border:1px solid #30363d;transition:.3s;display:flex;flex-direction:column;}
+    .card:hover{transform:translateY(-4px);box-shadow:0 15px 25px rgba(0,0,0,.3);} .card h3{color:var(--accent-blue);font-size:1.4rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+    .card p{flex:1 1 auto;} .card .btn{margin-top:1rem;}
+    /* Playground */
+    .play-block{background:var(--card-bg);border:2px solid var(--accent-green);border-radius:15px;padding:2rem;margin:2rem 0;position:relative;}
+    textarea.code-editor{width:100%;min-height:200px;background:#1e1e1e;color:#d4d4d4;font-family:monospace;border:1px solid #333;border-radius:10px;padding:1rem;}
+    .btn{background:var(--gradient-1);color:#fff;padding:.7rem 1.5rem;border:none;border-radius:8px;cursor:pointer;font-weight:500;transition:.3s;} .btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.3);} 
+    pre.output{background:#1e1e1e;color:var(--accent-green);border-radius:10px;padding:1rem;margin-top:1rem;min-height:60px;white-space:pre-wrap;transition:transform .3s;overflow:auto;} .flash{transform:scale(1.05);} 
+    /* JS Console */
+    .js-console{background:#0b0f16;border:1px solid #30363d;border-radius:10px;padding:1rem;margin-top:1rem;color:#79c0ff;font-size:.85rem;max-height:150px;overflow:auto;}
+    /* Footer */
+    .footer{background:var(--card-bg);text-align:center;padding:3rem 0;margin-top:4rem;border-top:1px solid #30363d;}
+    @media(max-width:768px){.header h1{font-size:2rem;}}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>Interatividade &amp; Material de Apoio</h1>
+    <p>Experimente Python e veja logs direto na tela</p>
+  </header>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a class="nav-item" href="index.html">🏠 Início</a>
+      <a class="nav-item" href="estruturas_dados.html">📚 Estruturas</a>
+      <a class="nav-item" href="#interativo">🧩 Interativo</a>
+      <a class="nav-item" href="#apoio">📂 Apoio</a>
+    </div>
+  </nav>
+
+  <!-- Interatividade Didática -->
+  <section id="interativo" class="section">
+    <h2>Playground Interativo 🧩</h2>
+
+    <!-- Playground Desafio -->
+    <div class="play-block" id="block-desafio">
+      <h3 class="text-xl mb-4 text-emerald-400 font-semibold flex items-center gap-2">▶️ Mini‑Desafio: Quadrado de um Número</h3>
+      <textarea id="code-editor" class="code-editor"># complete a função abaixo
+
+def quadrado(n):
+    return n * n  # experimente mudar!
+
+print(quadrado(5))</textarea>
+      <button class="btn" id="run-code">Executar</button>
+      <pre id="output" class="output"></pre>
+      <pre id="js-console-desafio" class="js-console"></pre>
+    </div>
+
+    <!-- Playground Livre -->
+    <div class="play-block" id="block-livre">
+      <h3 class="text-xl mb-4 text-purple-300 font-semibold flex items-center gap-2">▶️ Playground Livre</h3>
+      <textarea id="code-editor-free" class="code-editor" placeholder="# digite seu código aqui">print("Hello, Python!")</textarea>
+      <button class="btn" id="run-free">Executar</button>
+      <pre id="output-free" class="output"></pre>
+      <pre id="js-console-livre" class="js-console"></pre>
+    </div>
+  </section>
+
+  <!-- Material de Apoio -->
+  <section id="apoio" class="section">
+    <h2>Material de Apoio 📂</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📑 Guia Visual (PDF)</h3>
+        <p>Download do guia visual cheio de exemplos e dicas.</p>
+        <a href="guia_python_visual.pdf" class="btn" target="_blank">Baixar PDF</a>
+      </div>
+      <div class="card">
+        <h3>💻 Repositório Exemplo</h3>
+        <p>Código fonte real de uma API moderna em FastAPI para você explorar.</p>
+        <a href="https://github.com/tiangolo/fastapi" class="btn" target="_blank">Visitar fastapi/fastapi</a>
+      </div>
+ <!-- Videos -->
+      <div class="card">
+        <h3>🎥 Curso Completo (freeCodeCamp)</h3>
+        <p>Aprenda Python em 4 horas com exemplos práticos.</p>
+        <div style="position:relative;padding-top:56.25%">
+          <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" title="Python - freeCodeCamp" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🎮 Projetos Práticos (Tech With Tim)</h3>
+        <p>Série de projetos divertidos e educativos para dominar Python.</p>
+        <div style="position:relative;padding-top:56.25%"><iframe src="https://www.youtube.com/embed/videoseries?list=PLzMcBGfZo4-mFu00qxl0a67RhjjZj3jXm" title="Tech With Tim" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div>
+      </div>
+      <div class="card">
+        <h3>🌟 Python Essencial (Corey Schafer)</h3>
+        <p>Playlist detalhada cobrindo fundamentos e tópicos avançados.</p>
+        <div style="position:relative;padding-top:56.25%"><iframe src="https://www.youtube.com/embed/videoseries?list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc" title="Corey Schafer" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div>
+      </div>
+      <div class="card">
+        <h3>🚀 Curso Rápido (Mosh)</h3>
+        <p>Python for Beginners – Programming with Mosh.</p>
+        <div style="position:relative;padding-top:56.25%"><iframe src="https://www.youtube.com/embed/_uQrJ0TkZlc" title="Python Mosh" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div>
+      </div>
+      <div class="card">
+        <h3>🤖 Machine Learning com Sentdex</h3>
+        <p>Leva o Python além: ML e Data Science em foco.</p>
+        <div style="position:relative;padding-top:56.25%"><iframe src="https://www.youtube.com/embed/videoseries?list=PLQVvvaa0QuDfhTox0AjmQ6tvTgMBZBEXN" title="Sentdex ML" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 • Plataforma Python Avançado</p>
+  </footer>
+
+  <!-- Pyodide / Playground Script -->
+  <script type="module">
+    import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.27.3/full/pyodide.mjs";
+    const pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.27.3/full/" });
+
+    // Capture JS console logs
+    function attachConsole(elemId){
+      const original = console.log;
+      console.log = (...args)=>{
+        original(...args);
+        const el=document.getElementById(elemId);
+        if(el){el.textContent+=args.join(" ")+"\n";el.scrollTop=el.scrollHeight;}
+      };
+    }
+    attachConsole('js-console-desafio');
+    attachConsole('js-console-livre');
+
+    async function runCode(sourceId, outputId){
+      const editor=document.getElementById(sourceId);
+      const output=document.getElementById(outputId);
+      output.textContent="⏳ Executando...";
+      try{
+        // redirect stdout
+        await pyodide.runPythonAsync(`import sys,io\n_c=io.StringIO()\nsys.stdout=_c\nsys.stderr=_c`);
+        await pyodide.runPythonAsync(editor.value);
+        const result = await pyodide.runPythonAsync("_c.getvalue()")
+        output.textContent=result || "✅ Código executado.";
+        output.classList.add('flash');setTimeout(()=>output.classList.remove('flash'),300);
+      }catch(err){output.textContent="❌ "+err;}
+    }
+
+    document.getElementById("run-code").addEventListener("click",()=>runCode("code-editor","output"));
+    document.getElementById("run-free").addEventListener("click",()=>runCode("code-editor-free","output-free"));
+  </script>
+
+  <!-- Animations & Smooth scroll -->
+  <script>
+    document.querySelectorAll('.nav-item').forEach(el=>{
+      const href=el.getAttribute('href');
+      if(href.startsWith('#')){
+        el.addEventListener('click',e=>{e.preventDefault();document.querySelector(href).scrollIntoView({behavior:'smooth'});});
+      }
+    });
+    const observer=new IntersectionObserver(entries=>{entries.forEach(ent=>{if(ent.isIntersecting){ent.target.style.opacity='1';ent.target.style.transform='translateY(0)';}});},{threshold:.15});
+    document.querySelectorAll('.section').forEach(sec=>observer.observe(sec));
+  </script>
+</body>
+</html>

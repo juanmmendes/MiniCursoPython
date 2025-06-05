@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tutorial - Guia Completo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3776ab;
+            --secondary-color: #ffd43b;
+            --dark-bg: #0d1117;
+            --card-bg: #161b22;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-purple: #a5a3ff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), #2e5f8a);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="60" cy="40" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .python-logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--card-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #30363d;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-item:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-item:hover::before {
+            left: 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid #30363d;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card h3 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Code blocks */
+        .code-container {
+            background: #1e1e1e;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .code-header {
+            background: #2d2d30;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid #333;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        /* Interactive elements */
+        .interactive-demo {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--accent-green);
+        }
+
+        .demo-title {
+            color: var(--accent-green);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            background: var(--dark-bg);
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            padding: 0.8rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .btn {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-2);
+        }
+
+        .btn-accent {
+            background: var(--gradient-3);
+        }
+
+        /* Resources section */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .resource-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-blue);
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateX(5px);
+            border-left-color: var(--accent-green);
+        }
+
+        .resource-item h4 {
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-item a {
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resource-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--card-bg);
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid #30363d;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer h3 {
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="python-logo">🐍</div>
+            <h1>Tutorial Python</h1>
+            <p class="subtitle">Sua jornada para dominar uma das linguagens mais poderosas do mundo</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#inicio" class="nav-item">🚀 Início</a>
+            <a href="#instalacao" class="nav-item">⚙️ Instalação</a>
+            <a href="#fundamentos" class="nav-item">📚 Fundamentos</a>
+            <a href="#bibliotecas" class="nav-item">📦 Bibliotecas</a>
+            <a href="#frameworks" class="nav-item">🏗️ Frameworks</a>
+            <a href="#recursos" class="nav-item">🔗 Recursos</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Seção Início -->
+        <section id="inicio" class="section">
+            <h2>Por que Python? 🤔</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🎯</span> Sintaxe Simples</h3>
+                    <p>Python tem uma sintaxe limpa e intuitiva que se assemelha ao inglês natural, tornando-a perfeita para iniciantes e eficiente para experts.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">🌍</span> Versátil</h3>
+                    <p>Web development, data science, inteligência artificial, automação, jogos - Python pode fazer tudo isso e muito mais!</p>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">👥</span> Comunidade Ativa</h3>
+                    <p>Uma das maiores e mais acolhedoras comunidades de programação do mundo, sempre pronta para ajudar.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">🚀</span> Alta Demanda</h3>
+                    <p>Uma das linguagens mais procuradas no mercado de trabalho, com salários competitivos e oportunidades globais.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Instalação -->
+        <section id="instalacao" class="section">
+            <h2>Instalação e Configuração ⚙️</h2>
+            
+            <div class="card">
+                <h3><span class="card-icon">💻</span> Instalando Python</h3>
+                <p>Baixe a versão mais recente do Python em <a href="https://python.org" target="_blank" style="color: var(--accent-blue);">python.org</a></p>
+                
+                <div class="code-container">
+                    <div class="code-header">Terminal/CMD</div>
+                    <pre><code class="language-bash"># Verificar se Python está instalado
+python --version
+# ou
+python3 --version
+
+# Verificar pip (gerenciador de pacotes)
+pip --version</code></pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="card-icon">🔧</span> IDEs Recomendadas</h3>
+                <div class="resource-grid">
+                    <div class="resource-item">
+                        <h4>VS Code</h4>
+                        <p>Editor gratuito e poderoso</p>
+                        <a href="https://code.visualstudio.com/" target="_blank">Download</a>
+                    </div>
+                    <div class="resource-item">
+                        <h4>PyCharm</h4>
+                        <p>IDE completa para Python</p>
+                        <a href="https://www.jetbrains.com/pycharm/" target="_blank">Download</a>
+                    </div>
+                    <div class="resource-item">
+                        <h4>Jupyter Notebook</h4>
+                        <p>Ideal para Data Science</p>
+                        <a href="https://jupyter.org/" target="_blank">Download</a>
+                    </div>
+                    <div class="resource-item">
+                        <h4>Replit</h4>
+                        <p>IDE online, sem instalação</p>
+                        <a href="https://replit.com/" target="_blank">Acessar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Fundamentos -->
+        <section id="fundamentos" class="section">
+            <h2>Fundamentos Python 📚</h2>
+            
+            <div class="card">
+                <h3><span class="card-icon">🔤</span> Seu Primeiro Programa</h3>
+                <div class="code-container">
+                    <div class="code-header">hello_world.py</div>
+                    <pre><code class="language-python"># Seu primeiro programa Python
+print("Olá, Mundo! 🌍")
+print("Bem-vindo ao Python!")
+
+# Variáveis
+nome = "Pythonista"
+idade = 25
+print(f"Olá, {nome}! Você tem {idade} anos.")</code></pre>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3><span class="card-icon">📊</span> Tipos de Dados</h3>
+                    <div class="code-container">
+                        <div class="code-header">tipos_dados.py</div>
+                        <pre><code class="language-python"># Números
+inteiro = 42
+decimal = 3.14
+complexo = 1 + 2j
+
+# Texto
+texto = "Python é incrível!"
+char = 'P'
+
+# Booleano
+verdadeiro = True
+falso = False
+
+# Listas
+lista = [1, 2, 3, "Python"]
+
+# Dicionários
+pessoa = {
+    "nome": "Ana",
+    "idade": 28,
+    "cidade": "São Paulo"
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🔄</span> Estruturas de Controle</h3>
+                    <div class="code-container">
+                        <div class="code-header">controle.py</div>
+                        <pre><code class="language-python"># Condicionais
+idade = 18
+if idade >= 18:
+    print("Maior de idade")
+else:
+    print("Menor de idade")
+
+# Loops
+for i in range(5):
+    print(f"Contando: {i}")
+
+# While
+contador = 0
+while contador < 3:
+    print(f"Contador: {contador}")
+    contador += 1</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">⚙️</span> Funções</h3>
+                    <div class="code-container">
+                        <div class="code-header">funcoes.py</div>
+                        <pre><code class="language-python"># Função simples
+def saudacao(nome):
+    return f"Olá, {nome}!"
+
+# Função com parâmetros padrão
+def calcular_area(largura, altura=1):
+    return largura * altura
+
+# Usando as funções
+print(saudacao("Maria"))
+print(f"Área: {calcular_area(5, 3)}")
+
+# Lambda (função anônima)
+quadrado = lambda x: x ** 2
+print(f"5² = {quadrado(5)}")</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demo Interativo -->
+            <div class="interactive-demo">
+                <div class="demo-title">
+                    <span>🧮</span> Calculadora Interativa
+                </div>
+                <p>Teste Python em ação! Digite dois números e veja o resultado:</p>
+                <div class="input-group">
+                    <input type="number" id="num1" class="input-field" placeholder="Primeiro número" value="10">
+                    <input type="number" id="num2" class="input-field" placeholder="Segundo número" value="5">
+                    <button onclick="calcular()" class="btn">Calcular</button>
+                </div>
+                <div id="resultado" style="margin-top: 1rem; font-size: 1.2rem; color: var(--accent-green);"></div>
+            </div>
+        </section>
+
+        <!-- Seção Bibliotecas -->
+        <section id="bibliotecas" class="section">
+            <h2>Principais Bibliotecas 📦</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3><span class="card-icon">📊</span> Data Science</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0;">🐼 <strong>Pandas</strong> - Manipulação de dados</li>
+                        <li style="margin: 0.5rem 0;">🔢 <strong>NumPy</strong> - Computação numérica</li>
+                        <li style="margin: 0.5rem 0;">📈 <strong>Matplotlib</strong> - Visualização</li>
+                        <li style="margin: 0.5rem 0;">🎨 <strong>Seaborn</strong> - Gráficos estatísticos</li>
+                        <li style="margin: 0.5rem 0;">🧠 <strong>Scikit-learn</strong> - Machine Learning</li>
+                    </ul>
+                    <div class="code-container">
+                        <div class="code-header">data_science.py</div>
+                        <pre><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Criar DataFrame
+dados = pd.DataFrame({
+    'nome': ['Ana', 'João', 'Maria'],
+    'idade': [25, 30, 28],
+    'salario': [5000, 6000, 5500]
+})
+
+print(dados.head())</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🌐</span> Web Development</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0;">🌟 <strong>Requests</strong> - HTTP requests</li>
+                        <li style="margin: 0.5rem 0;">🕷️ <strong>BeautifulSoup</strong> - Web scraping</li>
+                        <li style="margin: 0.5rem 0;">⚡ <strong>FastAPI</strong> - APIs modernas</li>
+                        <li style="margin: 0.5rem 0;">🔒 <strong>Cryptography</strong> - Segurança</li>
+                        <li style="margin: 0.5rem 0;">🐍 <strong>Flask</strong> - Framework web leve</li>
+                    </ul>
+                    <div class="code-container">
+                        <div class="code-header">web_requests.py</div>
+                        <pre><code class="language-python">import requests
+from bs4 import BeautifulSoup
+
+# Fazer requisição HTTP
+response = requests.get('https://httpbin.org/json')
+data = response.json()
+print(data)
+
+# Web scraping básico
+url = 'https://quotes.toscrape.com/'
+page = requests.get(url)
+soup = BeautifulSoup(page.content, 'html.parser')
+quotes = soup.find_all('span', class_='text')
+for quote in quotes[:3]:
+    print(quote.text)</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🤖</span> Inteligência Artificial</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0;">🔥 <strong>TensorFlow</strong> - Deep Learning</li>
+                        <li style="margin: 0.5rem 0;">⚡ <strong>PyTorch</strong> - Neural Networks</li>
+                        <li style="margin: 0.5rem 0;">🗣️ <strong>NLTK</strong> - Processamento de linguagem</li>
+                        <li style="margin: 0.5rem 0;">👁️ <strong>OpenCV</strong> - Visão computacional</li>
+                        <li style="margin: 0.5rem 0;">🤗 <strong>Transformers</strong> - Modelos pré-treinados</li>
+                    </ul>
+                    <div class="code-container">
+                        <div class="code-header">ai_example.py</div>
+                        <pre><code class="language-python">import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+# Dados de exemplo
+X = np.random.rand(100, 1) * 10
+y = 2 * X.flatten() + 1 + np.random.randn(100) * 0.5
+
+# Dividir dados
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Treinar modelo
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Fazer predições
+predictions = model.predict(X_test)
+print(f"Score: {model.score(X_test, y_test):.2f}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🔧</span> Automação</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0;">🖱️ <strong>PyAutoGUI</strong> - Automação de GUI</li>
+                        <li style="margin: 0.5rem 0;">📧 <strong>Selenium</strong> - Automação web</li>
+                        <li style="margin: 0.5rem 0;">📝 <strong>openpyxl</strong> - Manipular Excel</li>
+                        <li style="margin: 0.5rem 0;">📄 <strong>PyPDF2</strong> - Trabalhar com PDFs</li>
+                        <li style="margin: 0.5rem 0;">⏰ <strong>Schedule</strong> - Agendar tarefas</li>
+                    </ul>
+                    <div class="code-container">
+                        <div class="code-header">automation.py</div>
+                        <pre><code class="language-python">import schedule
+import time
+import os
+
+def backup_files():
+    print("Executando backup dos arquivos...")
+    # Lógica do backup aqui
+    
+def send_report():
+    print("Enviando relatório diário...")
+    # Lógica do relatório aqui
+
+# Agendar tarefas
+schedule.every().day.at("09:00").do(backup_files)
+schedule.every().day.at("17:00").do(send_report)
+
+# Loop principal
+while True:
+    schedule.run_pending()
+    time.sleep(60)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Frameworks -->
+        <section id="frameworks" class="section">
+            <h2>Frameworks Populares 🏗️</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🌟</span> Django</h3>
+                    <p>Framework web full-stack com "batteries included". Perfeito para aplicações complexas e escaláveis.</p>
+                    <div class="code-container">
+                        <div class="code-header">django_example.py</div>
+                        <pre><code class="language-python"># views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def home(request):
+    return render(request, 'home.html', {
+        'title': 'Meu Site Django',
+        'message': 'Bem-vindo ao Django!'
+    })
+
+def api_data(request):
+    data = {'status': 'success', 'data': [1, 2, 3]}
+    return JsonResponse(data)
+
+# urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('api/', views.api_data, name='api'),
+]</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">⚡</span> FastAPI</h3>
+                    <p>Framework moderno para APIs com performance alta e documentação automática. Ideal para microserviços.</p>
+                    <div class="code-container">
+                        <div class="code-header">fastapi_example.py</div>
+                        <pre><code class="language-python">from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    price: float
+    is_offer: bool = False
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+
+@app.post("/items/")
+def create_item(item: Item):
+    return {"message": f"Item {item.name} created!"}</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🍃</span> Flask</h3>
+                    <p>Micro-framework minimalista e flexível. Excelente para projetos pequenos e médios ou quando você quer controle total.</p>
+                    <div class="code-container">
+                        <div class="code-header">flask_example.py</div>
+                        <pre><code class="language-python">from flask import Flask, render_template, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/api/users', methods=['GET', 'POST'])
+def users():
+    if request.method == 'POST':
+        user_data = request.get_json()
+        return jsonify({"message": "User created", "data": user_data})
+    else:
+        return jsonify({"users": ["Alice", "Bob", "Charlie"]})
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🎮</span> Pygame</h3>
+                    <p>Biblioteca para desenvolvimento de jogos 2D. Perfeita para aprender programação através de jogos divertidos.</p>
+                    <div class="code-container">
+                        <div class="code-header">pygame_example.py</div>
+                        <pre><code class="language-python">import pygame
+import sys
+
+# Inicializar Pygame
+pygame.init()
+
+# Configurações
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Meu Primeiro Jogo")
+
+# Cores
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+
+# Posição do jogador
+player_x, player_y = WIDTH // 2, HEIGHT // 2
+
+# Loop principal
+clock = pygame.time.Clock()
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    
+    # Controles
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player_x -= 5
+    if keys[pygame.K_RIGHT]:
+        player_x += 5
+    
+    # Desenhar
+    screen.fill(WHITE)
+    pygame.draw.circle(screen, RED, (player_x, player_y), 20)
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
+sys.exit()</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Recursos -->
+        <section id="recursos" class="section">
+            <h2>Recursos e Links Úteis 🔗</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3><span class="card-icon">📚</span> Documentação Oficial</h3>
+                    <div class="resource-grid">
+                        <div class="resource-item">
+                            <h4>Python.org</h4>
+                            <p>Documentação oficial completa</p>
+                            <a href="https://docs.python.org/" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>PEP 8</h4>
+                            <p>Guia de estilo para Python</p>
+                            <a href="https://pep8.org/" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Python Tutorial</h4>
+                            <p>Tutorial oficial para iniciantes</p>
+                            <a href="https://docs.python.org/tutorial/" target="_blank">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🎓</span> Cursos Online</h3>
+                    <div class="resource-grid">
+                        <div class="resource-item">
+                            <h4>Codecademy</h4>
+                            <p>Curso interativo de Python</p>
+                            <a href="https://www.codecademy.com/learn/learn-python-3" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Coursera</h4>
+                            <p>Cursos universitários online</p>
+                            <a href="https://www.coursera.org/courses?query=python" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>edX</h4>
+                            <p>Cursos gratuitos de universidades</p>
+                            <a href="https://www.edx.org/learn/python" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Real Python</h4>
+                            <p>Tutoriais e artigos avançados</p>
+                            <a href="https://realpython.com/" target="_blank">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">💬</span> Comunidades</h3>
+                    <div class="resource-grid">
+                        <div class="resource-item">
+                            <h4>Stack Overflow</h4>
+                            <p>Perguntas e respostas</p>
+                            <a href="https://stackoverflow.com/questions/tagged/python" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Reddit r/Python</h4>
+                            <p>Comunidade ativa do Reddit</p>
+                            <a href="https://www.reddit.com/r/Python/" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Python Discord</h4>
+                            <p>Servidor Discord oficial</p>
+                            <a href="https://discord.gg/python" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Python Brasil</h4>
+                            <p>Comunidade brasileira</p>
+                            <a href="https://python.org.br/" target="_blank">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🛠️</span> Ferramentas Úteis</h3>
+                    <div class="resource-grid">
+                        <div class="resource-item">
+                            <h4>PyPI</h4>
+                            <p>Repositório de pacotes Python</p>
+                            <a href="https://pypi.org/" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>GitHub</h4>
+                            <p>Repositórios e projetos open source</p>
+                            <a href="https://github.com/topics/python" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Python Tutor</h4>
+                            <p>Visualizar execução de código</p>
+                            <a href="http://pythontutor.com/" target="_blank">Acessar</a>
+                        </div>
+                        <div class="resource-item">
+                            <h4>Regex101</h4>
+                            <p>Testar expressões regulares</p>
+                            <a href="https://regex101.com/" target="_blank">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roadmap de Aprendizado -->
+            <div class="card" style="margin-top: 2rem;">
+                <h3><span class="card-icon">🗺️</span> Roadmap de Aprendizado</h3>
+                <div style="display: grid; gap: 1rem; margin-top: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: var(--accent-green); color: white; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                        <div>
+                            <strong>Fundamentos (1-2 meses)</strong>
+                            <p style="margin: 0; color: var(--text-secondary);">Sintaxe, variáveis, estruturas de controle, funções</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: var(--accent-blue); color: white; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                        <div>
+                            <strong>Estruturas de Dados (1 mês)</strong>
+                            <p style="margin: 0; color: var(--text-secondary);">Listas, dicionários, tuplas, sets, algoritmos básicos</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: var(--accent-purple); color: white; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                        <div>
+                            <strong>Programação Orientada a Objetos (1 mês)</strong>
+                            <p style="margin: 0; color: var(--text-secondary);">Classes, objetos, herança, polimorfismo</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: linear-gradient(45deg, #f093fb, #f5576c); color: white; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                        <div>
+                            <strong>Bibliotecas e Frameworks (2-3 meses)</strong>
+                            <p style="margin: 0; color: var(--text-secondary);">Escolha uma área: Web, Data Science, ou Automação</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: linear-gradient(45deg, #4facfe, #00f2fe); color: white; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</div>
+                        <div>
+                            <strong>Projetos Práticos (Contínuo)</strong>
+                            <p style="margin: 0; color: var(--text-secondary);">Construa projetos reais para seu portfólio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Projetos Práticos -->
+        <section class="section">
+            <h2>Projetos para Praticar 🚀</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🔰</span> Iniciante</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0;">📝 <strong>Lista de Tarefas</strong> - CRUD básico</li>
+                        <li style="margin: 0.5rem 0;">🎲 <strong>Jogo de Adivinhação</strong> - Lógica e loops</li>
+                        <li style="margin: 0.5rem 0;">💰 <strong>Calculadora de Gorjetas</strong> - Matemática básica</li>
+                        <li style="margin: 0.5rem 0;">📊 <strong>Analisador de Texto</strong> - Manipulação de strings</li>
+                        <li style="margin: 0.5rem 0;">🌡️ <strong>Conversor de Temperatura</strong> - Funções</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">⭐</span> Intermediário</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0;">🌐 <strong>Web Scraper</strong> - APIs e BeautifulSoup</li>
+                        <li style="margin: 0.5rem 0;">📈 <strong>Dashboard de Dados</strong> - Plotly/Streamlit</li>
+                        <li style="margin: 0.5rem 0;">🔐 <strong>Gerenciador de Senhas</strong> - Criptografia</li>
+                        <li style="margin: 0.5rem 0;">🤖 <strong>Bot do Telegram</strong> - APIs e automação</li>
+                        <li style="margin: 0.5rem 0;">📚 <strong>Sistema de Biblioteca</strong> - OOP e banco de dados</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🏆</span> Avançado</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0;">🧠 <strong>Modelo de ML</strong> - Scikit-learn/TensorFlow</li>
+                        <li style="margin: 0.5rem 0;">🌐 <strong>API REST Completa</strong> - FastAPI/Django</li>
+                        <li style="margin: 0.5rem 0;">📱 <strong>App Web Full-Stack</strong> - Frontend + Backend</li>
+                        <li style="margin: 0.5rem 0;">🎮 <strong>Jogo 2D</strong> - Pygame com física</li>
+                        <li style="margin: 0.5rem 0;">☁️ <strong>Sistema Distribuído</strong> - Microserviços</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Continue Sua Jornada Python! 🐍</h3>
+            <p>Python é uma linguagem incrível que abre portas para inúmeras oportunidades. Lembre-se: a prática constante é a chave para o sucesso!</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">💬</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">💼</a>
+            </div>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #30363d;">
+                <p style="color: var(--text-secondary);">
+                    💡 <strong>Dica do Dia:</strong> "A melhor forma de aprender Python é praticando todos os dias, mesmo que seja apenas 15 minutos!"
+                </p>
+                <p style="margin-top: 1rem; color: var(--text-secondary);">
+                    Feito com ❤️ para a comunidade Python brasileira • 2024
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Calculadora interativa
+        function calcular() {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            
+            const soma = num1 + num2;
+            const subtracao = num1 - num2;
+            const multiplicacao = num1 * num2;
+            const divisao = num2 !== 0 ? (num1 / num2).toFixed(2) : 'Erro: Divisão por zero';
+            
+            const resultado = `
+                <div style="background: var(--card-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem;">Resultados:</h4>
+                    <p>➕ Soma: <strong>${soma}</strong></p>
+                    <p>➖ Subtração: <strong>${subtracao}</strong></p>
+                    <p>✖️ Multiplicação: <strong>${multiplicacao}</strong></p>
+                    <p>➗ Divisão: <strong>${divisao}</strong></p>
+                </div>
+            `;
+            
+            document.getElementById('resultado').innerHTML = resultado;
+        }
+
+        // Smooth scroll para navegação
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação de entrada das seções
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Highlight do código
+        if (typeof Prism !== 'undefined') {
+            Prism.highlightAll();
+        }
+
+        // Easter egg - Konami code
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'rainbow 2s linear infinite';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 5000);
+                
+                // Adicionar animação rainbow
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                alert('🎉 Easter egg encontrado! Você desbloqueou o modo rainbow! 🌈');
+            }
+        });
+    </script>
+</body>
+</html>
