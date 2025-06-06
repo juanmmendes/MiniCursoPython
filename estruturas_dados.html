@@ -3,215 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aprenda estruturas de dados, lógica de programação e programação orientada a objetos em Python. Guia completo com exemplos práticos.">
     <title>Python Avançado – Estruturas, Lógica e POO</title>
-
-    <!-- Prism para highlight -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
-
-    <!-- Mesmo visual da index.html -->
-    <style>
-        /* ====== Reset & Vars ====== */
-        *{margin:0;padding:0;box-sizing:border-box;}
-        :root{
-            --primary-color:#3776ab;--secondary-color:#ffd43b;--dark-bg:#0d1117;
-            --card-bg:#161b22;--text-primary:#f0f6fc;--text-secondary:#8b949e;
-            --accent-blue:#58a6ff;--accent-green:#3fb950;--accent-purple:#a5a3ff;
-            --gradient-1:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-            --gradient-2:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);
-            --gradient-3:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);
-        }
-        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--dark-bg);color:var(--text-primary);line-height:1.6;overflow-x:hidden;}
-
-        /* ====== Header ====== */
-        .header{background:linear-gradient(135deg,var(--primary-color),#2e5f8a);padding:2rem 0;text-align:center;position:relative;overflow:hidden;}
-        .header::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain2" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="60" cy="40" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain2)"/></svg>');animation:float 20s ease-in-out infinite;}
-        @keyframes float{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-20px) rotate(180deg);} }
-        .header h1{font-size:3rem;font-weight:bold;margin-bottom:1rem;text-shadow:2px 2px 4px rgba(0,0,0,.3);position:relative;z-index:1;}
-        .header .subtitle{font-size:1.2rem;color:var(--secondary-color);margin-bottom:1.5rem;position:relative;z-index:1;}
-        .python-logo{font-size:3.5rem;margin-bottom:1rem;animation:bounce 2s ease-in-out infinite;}
-        @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-10px);}60%{transform:translateY(-5px);} }
-
-        /* ====== Navigation ======*/
-        .nav{background:var(--card-bg);padding:1rem 0;position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px);border-bottom:1px solid #30363d;}
-        .nav-container{max-width:1200px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:2rem;padding:0 2rem;}
-        .nav-item{color:var(--text-secondary);text-decoration:none;padding:0.5rem 1rem;border-radius:25px;transition:all .3s ease;font-weight:500;position:relative;overflow:hidden;}
-        .nav-item::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gradient-1);transition:left .3s ease;z-index:-1;}
-        .nav-item:hover{color:#fff;transform:translateY(-2px);} .nav-item:hover::before{left:0;}
-
-        /* ====== Layout ====== */
-        .container{max-width:1200px;margin:0 auto;padding:0 2rem;}
-        .section{margin:4rem 0;opacity:0;transform:translateY(30px);animation:fadeInUp .8s ease forwards;}
-        .section:nth-child(even){animation-delay:.2s;}
-        @keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
-        .section h2{font-size:2.3rem;margin-bottom:2rem;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;}
-        .section h2::after{content:"";position:absolute;bottom:-10px;left:0;width:50px;height:4px;background:var(--gradient-1);border-radius:2px;}
-
-        /* ====== Cards & Grid ====== */
-        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin:2rem 0;}
-        .card{background:var(--card-bg);border-radius:15px;padding:2rem;border:1px solid #30363d;transition:all .3s ease;position:relative;overflow:hidden;}
-        .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient-1);transform:scaleX(0);transition:transform .3s ease;}
-        .card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.3);} .card:hover::before{transform:scaleX(1);} .card h3{color:var(--accent-blue);font-size:1.5rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
-        .card-icon{font-size:1.8rem;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-        /* Code block */
-        .code-container{background:#1e1e1e;border-radius:10px;margin:1rem 0;overflow:hidden;border:1px solid #333;}
-        .code-header{background:#2d2d30;padding:.5rem 1rem;font-size:.9rem;color:var(--text-secondary);border-bottom:1px solid #333;}
-        pre{margin:0;padding:1rem;overflow-x:auto;}
-
-        /* Interactive demo */
-        .interactive-demo{background:var(--card-bg);border-radius:15px;padding:2rem;margin:2rem 0;border:2px solid var(--accent-green);} .demo-title{color:var(--accent-green);font-size:1.3rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
-        .input-group{display:flex;gap:1rem;margin:1rem 0;flex-wrap:wrap;} .input-field{background:var(--dark-bg);border:2px solid #30363d;border-radius:8px;padding:.8rem;color:var(--text-primary);font-size:1rem;transition:border-color .3s ease;} .input-field:focus{outline:none;border-color:var(--accent-blue);} .btn{background:var(--gradient-1);color:#fff;border:none;padding:.8rem 1.5rem;border-radius:8px;cursor:pointer;font-size:1rem;font-weight:500;transition:all .3s ease;text-decoration:none;display:inline-block;text-align:center;} .btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.3);} .btn-secondary{background:var(--gradient-2);} .btn-accent{background:var(--gradient-3);}        
-
-        /* Footer */
-        .footer{background:var(--card-bg);text-align:center;padding:3rem 0;margin-top:4rem;border-top:1px solid #30363d;} .social-links{display:flex;justify-content:center;gap:2rem;margin:2rem 0;} .social-link{color:var(--text-secondary);font-size:1.5rem;transition:all .3s ease;} .social-link:hover{color:var(--accent-blue);transform:translateY(-3px);}         
-
-        /* Scrollbar */
-        ::-webkit-scrollbar{width:12px;} ::-webkit-scrollbar-track{background:var(--dark-bg);} ::-webkit-scrollbar-thumb{background:var(--gradient-1);border-radius:6px;} ::-webkit-scrollbar-thumb:hover{background:var(--gradient-2);}       
-        /* Responsive */
-        @media (max-width:768px){.header h1{font-size:2.2rem;}.nav-container{flex-direction:column;gap:1rem;}.card-grid{grid-template-columns:1fr;}}
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- ===== Header ===== -->
-    <header class="header">
-        <div class="container">
-            <div class="python-logo">🐍</div>
-            <h1>Python Avançado</h1>
-            <p class="subtitle">Estruturas de Dados, Lógica, POO e Mais</p>
-        </div>
-    </header>
-
-    <!-- ===== Navigation ===== -->
-    <nav class="nav">
+    <!-- Navegação -->
+    <nav class="nav" role="navigation" aria-label="Menu principal">
         <div class="nav-container">
-            <a href="index.html" class="nav-item">🏠 Página Inicial</a>
-            <a href="#estruturas" class="nav-item">📚 Estruturas</a>
-            <a href="#logica" class="nav-item">🔍 Lógica</a>
-            <a href="#repeticao" class="nav-item">🔄 Repetição</a>
-            <a href="#classes" class="nav-item">🏛️ POO</a>
-            <a href="#debug" class="nav-item">🐞 Debug & Testes</a>
+            <a href="index.html" class="nav-logo">
+                <span class="nav-logo-icon">🐍</span>
+                <span>Python Tutorial</span>
+            </a>
+            
+            <div class="nav-wrapper">
+                <!-- Menu Global -->
+                <ul class="nav-main nav-menu">
+                    <li>
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home nav-icon" aria-hidden="true"></i> Página Inicial
+                        </a>
+                    </li>
+                    <li>
+                        <a href="estruturas_dados.html" class="nav-link" aria-current="page">
+                            <i class="fas fa-database nav-icon" aria-hidden="true"></i> Estruturas de Dados
+                        </a>
+                    </li>
+                    <li>
+                        <a href="interatividade_material.html" class="nav-link">
+                            <i class="fas fa-laptop-code nav-icon" aria-hidden="true"></i> Interatividade
+                        </a>
+                    </li>
+                    <li>
+                        <a href="comunidades.html" class="nav-link">
+                            <i class="fas fa-users nav-icon" aria-hidden="true"></i> Comunidades
+                        </a>
+                    </li>
+                </ul>
+                
+                <button class="nav-mobile-toggle" aria-expanded="false" aria-label="Abrir menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Submenu da Página -->
+            <ul class="nav-sub">
+                <li>
+                    <a href="#estruturas" class="nav-link">
+                        <i class="fas fa-layer-group nav-icon" aria-hidden="true"></i> Estruturas
+                    </a>
+                </li>
+                <li>
+                    <a href="#logica" class="nav-link">
+                        <i class="fas fa-brain nav-icon" aria-hidden="true"></i> Lógica
+                    </a>
+                </li>
+                <li>
+                    <a href="#repeticao" class="nav-link">
+                        <i class="fas fa-sync nav-icon" aria-hidden="true"></i> Repetição
+                    </a>
+                </li>
+                <li>
+                    <a href="#poo" class="nav-link">
+                        <i class="fas fa-cubes nav-icon" aria-hidden="true"></i> POO
+                    </a>
+                </li>
+                <li>
+                    <a href="#debug" class="nav-link">
+                        <i class="fas fa-bug nav-icon" aria-hidden="true"></i> Debug & Testes
+                    </a>
+                </li>
+            </ul>
         </div>
+        
+        <!-- Overlay para menu mobile -->
+        <div class="nav-overlay"></div>
     </nav>
 
+    <!-- Hero Section -->
     <div class="container">
-        <!-- ===== Estruturas de Dados ===== -->
-        <section id="estruturas" class="section">
-            <h2>Estruturas de Dados em Python 📚</h2>
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="python-logo" aria-hidden="true">🐍</div>
+                <h1 class="hero-title">Python Avançado</h1>
+                <p class="hero-subtitle">Estruturas de Dados, Lógica, POO e Mais</p>
+            </div>
+        </div>
+
+        <!-- Estruturas de Dados -->
+        <section id="estruturas" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-layer-group" aria-hidden="true"></i>
+                Estruturas de Dados em Python
+            </h2>
+            
             <div class="card-grid">
                 <div class="card">
-                    <h3><span class="card-icon">📝</span> Listas</h3>
+                    <h3>
+                        <i class="fas fa-list" aria-hidden="true"></i>
+                        Listas
+                    </h3>
                     <p>Coleções ordenadas e mutáveis. Suportam elementos duplicados.</p>
-                    <div class="code-container"><div class="code-header">listas.py</div><pre><code class="language-python">frutas = ["maçã", "banana", "cereja"]
+                    <div class="code-block">
+                        <h4>listas.py</h4>
+                        <pre><code>frutas = ["maçã", "banana", "cereja"]
 frutas.append("laranja")
 frutas[1] = "kiwi"
-print(frutas[:2])  # slice</code></pre></div>
+print(frutas[:2])</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">🔒</span> Tuplas</h3>
+                    <h3>
+                        <i class="fas fa-lock" aria-hidden="true"></i>
+                        Tuplas
+                    </h3>
                     <p>Imutáveis e leves. Úteis para dados fixos ou como chaves de dicionário.</p>
-                    <div class="code-container"><div class="code-header">tuplas.py</div><pre><code class="language-python">coordenadas = (10, 20)
-# Desempacotamento
+                    <div class="code-block">
+                        <h4>tuplas.py</h4>
+                        <pre><code>coordenadas = (10, 20)
+
 x, y = coordenadas
-print(f"x={x}, y={y}")</code></pre></div>
+print(f"x={x}, y={y}")</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">🔑</span> Dicionários</h3>
+                    <h3>
+                        <i class="fas fa-key" aria-hidden="true"></i>
+                        Dicionários
+                    </h3>
                     <p>Pares chave‑valor para acesso rápido e sem ordem garantida.</p>
-                    <div class="code-container"><div class="code-header">dicionarios.py</div><pre><code class="language-python">pessoa = {"nome": "Ana", "idade": 28}
+                    <div class="code-block">
+                        <h4>dicionarios.py</h4>
+                        <pre><code>pessoa = {"nome": "Ana", "idade": 28}
 print(pessoa.get("nome"))
 for chave, valor in pessoa.items():
-    print(chave, valor)</code></pre></div>
+    print(chave, valor)</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">⚙️</span> Sets</h3>
+                    <h3>
+                        <i class="fas fa-cog" aria-hidden="true"></i>
+                        Sets
+                    </h3>
                     <p>Coleções não ordenadas de elementos únicos. Ótimos para operações de conjunto.</p>
-                    <div class="code-container"><div class="code-header">sets.py</div><pre><code class="language-python">numeros = {1, 2, 3, 3}
-print(numeros)  # {1, 2, 3}
+                    <div class="code-block">
+                        <h4>sets.py</h4>
+                        <pre><code>numeros = {1, 2, 3, 3}
+print(numeros)  
 otros = {3, 4, 5}
-print(numeros.union(otros))</code></pre></div>
+print(numeros.union(otros))</code></pre>
+                    </div>
                 </div>
-            </div>
-            <!-- demo -->
-            <div class="interactive-demo">
-                <div class="demo-title"><span>📈</span> Média Dinâmica</div>
-                <p>Digite números separados por vírgula e veja a média instantaneamente:</p>
-                <div class="input-group">
-                    <input id="valores" class="input-field" placeholder="Ex: 10, 20, 30" style="flex:1;">
-                    <button class="btn" onclick="calcularMedia()">Calcular</button>
-                </div>
-                <div id="media-res" style="font-size:1.2rem;color:var(--accent-green);"></div>
             </div>
         </section>
 
-        <!-- ===== Lógica de Programação ===== -->
-        <section id="logica" class="section">
-            <h2>Lógica de Programação 🔍</h2>
+        <!-- Lógica de Programação -->
+        <section id="logica" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-brain" aria-hidden="true"></i>
+                Lógica de Programação
+            </h2>
+            
             <div class="card-grid">
                 <div class="card">
-                    <h3><span class="card-icon">⚖️</span> Operadores Lógicos</h3>
-                    <div class="code-container"><div class="code-header">logicos.py</div><pre><code class="language-python">a = True
+                    <h3>
+                        <i class="fas fa-balance-scale" aria-hidden="true"></i>
+                        Operadores Lógicos
+                    </h3>
+                    <div class="code-block">
+                        <h4>logicos.py</h4>
+                        <pre><code>a = True
 b = False
-print(a and b)  # False
-print(a or b)   # True
-print(not a)    # False</code></pre></div>
+print(a and b)  
+print(a or b)   
+print(not a)</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">🔢</span> Operadores de Comparação</h3>
-                    <div class="code-container"><div class="code-header">comparacao.py</div><pre><code class="language-python">idade = 20
+                    <h3>
+                        <i class="fas fa-not-equal" aria-hidden="true"></i>
+                        Operadores de Comparação
+                    </h3>
+                    <div class="code-block">
+                        <h4>comparacao.py</h4>
+                        <pre><code>idade = 20
 if 18 <= idade < 65:
-    print("Adulto em idade ativa")</code></pre></div>
+    print("Adulto em idade ativa")</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">🧠</span> Pensamento Computacional</h3>
+                    <h3>
+                        <i class="fas fa-brain" aria-hidden="true"></i>
+                        Pensamento Computacional
+                    </h3>
                     <p>Quebre problemas grandes em partes menores (decomposição) e reconheça padrões para soluções reutilizáveis.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ===== Estruturas de Repetição ===== -->
-        <section id="repeticao" class="section">
-            <h2>Estruturas de Repetição 🔄</h2>
+        <!-- Estruturas de Repetição -->
+        <section id="repeticao" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-sync" aria-hidden="true"></i>
+                Estruturas de Repetição
+            </h2>
+            
             <div class="card-grid">
                 <div class="card">
-                    <h3><span class="card-icon">🔁</span> For Loop</h3>
-                    <div class="code-container"><div class="code-header">for_loop.py</div><pre><code class="language-python">nomes = ["Ana", "João", "Maria"]
+                    <h3>
+                        <i class="fas fa-redo" aria-hidden="true"></i>
+                        For Loop
+                    </h3>
+                    <div class="code-block">
+                        <h4>for_loop.py</h4>
+                        <pre><code>nomes = ["Ana", "João", "Maria"]
 for i, nome in enumerate(nomes, start=1):
-    print(i, nome)</code></pre></div>
+    print(i, nome)</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">♾️</span> While Loop</h3>
-                    <div class="code-container"><div class="code-header">while_loop.py</div><pre><code class="language-python">contador = 5
+                    <h3>
+                        <i class="fas fa-infinity" aria-hidden="true"></i>
+                        While Loop
+                    </h3>
+                    <div class="code-block">
+                        <h4>while_loop.py</h4>
+                        <pre><code>contador = 5
 while contador > 0:
     print(contador)
     contador -= 1
 else:
-    print("Contagem regressiva concluída")</code></pre></div>
+    print("Contagem regressiva concluída")</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">⚡</span> Comprehensions</h3>
-                    <div class="code-container"><div class="code-header">comprehension.py</div><pre><code class="language-python">quadrados = [x**2 for x in range(10) if x % 2 == 0]
-print(quadrados)</code></pre></div>
+                    <h3>
+                        <i class="fas fa-bolt" aria-hidden="true"></i>
+                        Comprehensions
+                    </h3>
+                    <div class="code-block">
+                        <h4>comprehension.py</h4>
+                        <pre><code>quadrados = [x**2 for x in range(10) if x % 2 == 0]
+print(quadrados)</code></pre>
+                    </div>
                 </div>
-            </div>
-            <div class="interactive-demo">
-                <div class="demo-title"><span>🧮</span> Fatorial com Loop</div>
-                <p>Digite um número inteiro para calcular o fatorial:</p>
-                <div class="input-group">
-                    <input id="fat-num" type="number" class="input-field" value="5" min="0" style="width:150px;">
-                    <button class="btn" onclick="calcFatorial()">Calcular</button>
-                </div>
-                <div id="fat-res" style="font-size:1.2rem;color:var(--accent-green);"></div>
             </div>
         </section>
 
-        <!-- ===== Classes & POO ===== -->
-        <section id="classes" class="section">
-            <h2>Programação Orientada a Objetos 🏛️</h2>
+        <!-- Programação Orientada a Objetos -->
+        <section id="poo" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-cubes" aria-hidden="true"></i>
+                Programação Orientada a Objetos
+            </h2>
+            
             <div class="card-grid">
                 <div class="card">
-                    <h3><span class="card-icon">👤</span> Classes & Objetos</h3>
-                    <div class="code-container"><div class="code-header">objetos.py</div><pre><code class="language-python">class Pessoa:
+                    <h3>
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                        Classes & Objetos
+                    </h3>
+                    <div class="code-block">
+                        <h4>objetos.py</h4>
+                        <pre><code>class Pessoa:
     def __init__(self, nome, idade):
         self.nome = nome
         self.idade = idade
@@ -220,113 +284,115 @@ print(quadrados)</code></pre></div>
         return f"{self.nome} diz: {msg}"
 
 ana = Pessoa("Ana", 30)
-print(ana.falar("Olá"))</code></pre></div>
+print(ana.falar("Olá"))</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">🧬</span> Herança</h3>
-                    <div class="code-container"><div class="code-header">heranca.py</div><pre><code class="language-python">class Funcionario(Pessoa):
+                    <h3>
+                        <i class="fas fa-dna" aria-hidden="true"></i>
+                        Herança
+                    </h3>
+                    <div class="code-block">
+                        <h4>heranca.py</h4>
+                        <pre><code>class Funcionario(Pessoa):
     def __init__(self, nome, idade, cargo):
         super().__init__(nome, idade)
         self.cargo = cargo
 
     def __str__(self):
-        return f"{self.nome} – {self.cargo}"</code></pre></div>
+        return f"{self.nome} – {self.cargo}"</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">🔄</span> Polimorfismo</h3>
+                    <h3>
+                        <i class="fas fa-random" aria-hidden="true"></i>
+                        Polimorfismo
+                    </h3>
                     <p>Mesma interface, comportamentos diferentes. Em Python, métodos específicos por classe substituem os da classe‑pai.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ===== Debug & Testes ===== -->
-        <section id="debug" class="section">
-            <h2>Debug e Testes 🐞</h2>
+        <!-- Debug e Testes -->
+        <section id="debug" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-bug" aria-hidden="true"></i>
+                Debug e Testes
+            </h2>
+            
             <div class="card-grid">
                 <div class="card">
-                    <h3><span class="card-icon">🐛</span> Debug com print & logging</h3>
-                    <div class="code-container"><div class="code-header">debug.py</div><pre><code class="language-python">import logging
+                    <h3>
+                        <i class="fas fa-bug" aria-hidden="true"></i>
+                        Debug com print & logging
+                    </h3>
+                    <div class="code-block">
+                        <h4>debug.py</h4>
+                        <pre><code>import logging
 logging.basicConfig(level=logging.INFO)
 
 def soma(a, b):
     logging.info("Somando %s + %s", a, b)
     return a + b
 
-print(soma(2, 3))</code></pre></div>
+print(soma(2, 3))</code></pre>
+                    </div>
                 </div>
+                
                 <div class="card">
-                    <h3><span class="card-icon">🔍</span> PDB – Python Debugger</h3>
-                    <div class="code-container"><div class="code-header">pdb_demo.py</div><pre><code class="language-python">import pdb
-
-x = 10
-y = 0
-pdb.set_trace()  # breakpoint
-print(x / y)  # ZeroDivisionError</code></pre></div>
-                </div>
-                <div class="card">
-                    <h3><span class="card-icon">✅</span> Testes Unitários com unittest</h3>
-                    <div class="code-container"><div class="code-header">test_calc.py</div><pre><code class="language-python">import unittest
+                    <h3>
+                        <i class="fas fa-vial" aria-hidden="true"></i>
+                        Testes Unitários
+                    </h3>
+                    <div class="code-block">
+                        <h4>test_calc.py</h4>
+                        <pre><code>import unittest
 from calc import soma
 
 class TestCalc(unittest.TestCase):
-    def test_soma_basica(self):
+    def test_soma(self):
         self.assertEqual(soma(2, 3), 5)
-
-if __name__ == '__main__':
-    unittest.main()</code></pre></div>
+        self.assertEqual(soma(-1, 1), 0)</code></pre>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- ===== Footer ===== -->
-    <footer class="footer">
-        <div class="container">
-            <h3>Continue Explorando! 🚀</h3>
-            <p>Pratique cada tópico com projetos pequenos e avance testando seus conhecimentos.</p>
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-logo" aria-hidden="true">🐍</div>
+            <p>Python Tutorial - Um projeto social para facilitar o aprendizado de programação</p>
+            
             <div class="social-links">
-                <a href="#" class="social-link">💬</a>
-                <a href="#" class="social-link">🐦</a>
-                <a href="#" class="social-link">💼</a>
+                <a href="https://www.linkedin.com/in/juan-mendes-739084273" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin social-icon" aria-hidden="true"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/juanmmendes" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github social-icon" aria-hidden="true"></i>
+                    <span>GitHub</span>
+                </a>
             </div>
-            <p style="color:var(--text-secondary);margin-top:2rem;">Feito com ❤ para a comunidade Python • 2024</p>
+            
+            <nav class="footer-nav" aria-label="Menu do rodapé">
+                <a href="index.html">Página Inicial</a>
+                <a href="estruturas_dados.html">Estruturas de Dados</a>
+                <a href="interatividade_material.html">Interatividade</a>
+                <a href="comunidades.html">Comunidades</a>
+            </nav>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Python Tutorial. Desenvolvido por Juan Mendes.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- ===== Scripts ===== -->
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('.nav-item').forEach(item=>{
-            item.addEventListener('click',e=>{
-                if(item.getAttribute('href').startsWith('#')){
-                    e.preventDefault();
-                    const target=document.querySelector(item.getAttribute('href'));
-                    target&&target.scrollIntoView({behavior:'smooth',block:'start'});
-                }
-            });
-        });
-        // Intersection animation
-        const observer=new IntersectionObserver(entries=>{
-            entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';}});
-        },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
-        document.querySelectorAll('.section').forEach(section=>observer.observe(section));
-        // Prism highlight
-        if(typeof Prism!=='undefined'){Prism.highlightAll();}
-
-        // Média dinâmica
-        function calcularMedia(){
-            const valores=document.getElementById('valores').value.split(',').map(v=>parseFloat(v.trim())).filter(v=>!isNaN(v));
-            if(!valores.length){document.getElementById('media-res').textContent='Insira valores válidos.';return;}
-            const media=valores.reduce((a,b)=>a+b,0)/valores.length;
-            document.getElementById('media-res').innerHTML=`Média: <strong>${media.toFixed(2)}</strong>`;
-        }
-        // Fatorial demo
-        function calcFatorial(){
-            let n=parseInt(document.getElementById('fat-num').value);
-            if(n<0){document.getElementById('fat-res').textContent='Insira um número não‑negativo.';return;}
-            let res=1;for(let i=2;i<=n;i++)res*=i;
-            document.getElementById('fat-res').innerHTML=`${n}! = <strong>${res}</strong>`;
-        }
-    </script>
+    <script src="js/common.js"></script>
+    <script src="js/navigation.js"></script>
 </body>
 </html>
+

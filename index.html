@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guia completo de Python para iniciantes e pessoas com dificuldades em programação. Projeto social para facilitar o aprendizado de Python.">
     <title>Python Tutorial - Guia Completo</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/navigation.css">
@@ -10,121 +11,256 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <nav class="nav">
+    <!-- Navegação -->
+    <nav class="nav" role="navigation" aria-label="Menu principal">
         <div class="nav-container">
-            <div class="main-menu">
-                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Página Inicial</a>
-                <a href="estruturas_dados.html" class="nav-item"><i class="fas fa-sitemap"></i> Estruturas de Dados</a>
-                <a href="interatividade_material.html" class="nav-item"><i class="fas fa-puzzle-piece"></i> Interatividade</a>
-                <a href="comunidades.html" class="nav-item"><i class="fas fa-users"></i> Comunidades</a>
+            <a href="index.html" class="nav-logo">
+                <span class="nav-logo-icon">🐍</span>
+                <span>Python Tutorial</span>
+            </a>
+            
+            <div class="nav-wrapper">
+                <!-- Menu Global -->
+                <ul class="nav-main nav-menu">
+                    <li>
+                        <a href="index.html" class="nav-link" aria-current="page">
+                            <i class="fas fa-home nav-icon" aria-hidden="true"></i> Página Inicial
+                        </a>
+                    </li>
+                    <li>
+                        <a href="estruturas_dados.html" class="nav-link">
+                            <i class="fas fa-database nav-icon" aria-hidden="true"></i> Estruturas de Dados
+                        </a>
+                    </li>
+                    <li>
+                        <a href="interatividade_material.html" class="nav-link">
+                            <i class="fas fa-laptop-code nav-icon" aria-hidden="true"></i> Interatividade
+                        </a>
+                    </li>
+                    <li>
+                        <a href="comunidades.html" class="nav-link">
+                            <i class="fas fa-users nav-icon" aria-hidden="true"></i> Comunidades
+                        </a>
+                    </li>
+                </ul>
+                
+                <button class="nav-mobile-toggle" aria-expanded="false" aria-label="Abrir menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <div class="sub-menu">
-                <a href="#introducao" class="nav-item"><i class="fas fa-info-circle"></i> Introdução</a>
-                <a href="#fundamentos" class="nav-item"><i class="fas fa-book"></i> Fundamentos</a>
-                <a href="#recursos" class="nav-item"><i class="fas fa-cogs"></i> Recursos</a>
-            </div>
+            
+            <!-- Submenu da Página -->
+            <ul class="nav-sub">
+                <li>
+                    <a href="#introducao" class="nav-link">
+                        <i class="fas fa-info-circle nav-icon" aria-hidden="true"></i> Introdução
+                    </a>
+                </li>
+                <li>
+                    <a href="#recursos" class="nav-link">
+                        <i class="fas fa-book nav-icon" aria-hidden="true"></i> Recursos
+                    </a>
+                </li>
+                <li>
+                    <a href="#depoimentos" class="nav-link">
+                        <i class="fas fa-comment nav-icon" aria-hidden="true"></i> Depoimentos
+                    </a>
+                </li>
+                <li>
+                    <a href="#comecar" class="nav-link">
+                        <i class="fas fa-play nav-icon" aria-hidden="true"></i> Começar
+                    </a>
+                </li>
+            </ul>
         </div>
+        
+        <!-- Overlay para menu mobile -->
+        <div class="nav-overlay"></div>
     </nav>
 
-    <header class="header">
-        <div class="container">
-            <div class="python-logo">🐍</div>
-            <h1>Python Tutorial - Guia Completo</h1>
-            <p class="subtitle">Seu caminho para dominar a programação Python</p>
+    <!-- Hero Section -->
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="python-logo" aria-hidden="true">🐍</div>
+                <h1 class="hero-title">Python Tutorial</h1>
+                <p class="hero-subtitle">Seu caminho para dominar a programação Python</p>
+                <div>
+                    <a href="#comecar" class="btn">
+                        <i class="fas fa-code" aria-hidden="true"></i> COMEÇAR AGORA
+                    </a>
+                    <a href="assets/docs/guia_python_estruturas_reestilizado.pdf" class="btn btn-secondary" download>
+                        <i class="fas fa-file-pdf" aria-hidden="true"></i> BAIXAR PDF
+                    </a>
+                </div>
+            </div>
         </div>
-    </header>
 
-    <main class="container">
-        <section id="introducao" class="section">
-            <h2>Bem-vindo ao Mundo Python <i class="fas fa-rocket"></i></h2>
+        <!-- Introdução -->
+        <section id="introducao" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                Por que Aprender Python?
+            </h2>
             <p>Python é uma linguagem de programação versátil, poderosa e fácil de aprender. Criada por Guido van Rossum em 1991, Python se destaca pela sua sintaxe clara e legível, que prioriza a produtividade do desenvolvedor e a qualidade do código.</p>
-            <p>Este guia foi desenvolvido para ajudar você a dominar Python, independentemente do seu nível de experiência. Desde conceitos básicos até técnicas avançadas, você encontrará tudo o que precisa para se tornar um programador Python competente.</p>
+            <p>Este guia foi desenvolvido como um projeto social para ajudar pessoas que sentem dificuldades em Python. Aqui você encontrará desde conceitos básicos até técnicas avançadas, tudo explicado de forma simples e direta para facilitar seu aprendizado.</p>
+            
             <div class="card-grid">
                 <div class="card">
-                    <h3><i class="fas fa-lightbulb"></i> Fácil de Aprender</h3>
-                    <p>Sintaxe clara e intuitiva, ideal para iniciantes e para quem busca produtividade.</p>
+                    <h3>
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                        Fácil de Aprender
+                    </h3>
+                    <p>Sintaxe clara e intuitiva, ideal para iniciantes e para quem tem dificuldades com programação. Python é considerada uma das melhores linguagens para começar a programar.</p>
+                    <a href="#" class="btn">Explorar Sintaxe</a>
                 </div>
+                
                 <div class="card">
-                    <h3><i class="fas fa-cogs"></i> Versátil e Poderoso</h3>
-                    <p>Usado em desenvolvimento web, ciência de dados, IA, automação e muito mais.</p>
+                    <h3>
+                        <i class="fas fa-tools" aria-hidden="true"></i>
+                        Versátil e Poderoso
+                    </h3>
+                    <p>Usado em desenvolvimento web, ciência de dados, IA, automação, jogos e muito mais. Python se adapta a praticamente qualquer área da tecnologia.</p>
+                    <a href="#" class="btn">Ver Aplicações</a>
                 </div>
+                
                 <div class="card">
-                    <h3><i class="fas fa-users"></i> Comunidade Ativa</h3>
-                    <p>Milhões de desenvolvedores ao redor do mundo contribuem e oferecem suporte.</p>
+                    <h3>
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        Comunidade Acolhedora
+                    </h3>
+                    <p>Milhões de desenvolvedores ao redor do mundo contribuem e oferecem suporte. Uma vasta biblioteca de pacotes está disponível para praticamente qualquer necessidade.</p>
+                    <a href="comunidades.html" class="btn">Conhecer Comunidades</a>
                 </div>
             </div>
         </section>
 
-        <section id="fundamentos" class="section">
-            <h2>Fundamentos Essenciais <i class="fas fa-flask"></i></h2>
-            <p>Comece sua jornada em Python com os pilares fundamentais da linguagem. Entenda as variáveis, tipos de dados, operadores e a lógica de programação que formam a base para qualquer aplicação.</p>
-            <div class="card-grid">
-                <div class="card">
-                    <h3><i class="fas fa-code"></i> Sintaxe Básica</h3>
-                    <p>Aprenda a estrutura do código Python, indentação e comentários.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fas fa-cube"></i> Variáveis e Tipos</h3>
-                    <p>Entenda como armazenar dados e os diferentes tipos: números, strings, booleanos.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fas fa-calculator"></i> Operadores</h3>
-                    <p>Dominar operadores aritméticos, de comparação, lógicos e de atribuição.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="recursos" class="section">
-            <h2>Recursos de Apoio <i class="fas fa-tools"></i></h2>
+        <!-- Recursos -->
+        <section id="recursos" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-tools" aria-hidden="true"></i>
+                Recursos de Aprendizado
+            </h2>
             <p>Para aprofundar seus conhecimentos e praticar, explore nossos materiais de apoio e ferramentas interativas. Baixe o guia completo em PDF, experimente o código no playground e acesse projetos práticos.</p>
+            
             <div class="card-grid">
                 <div class="card">
-                    <h3><i class="fas fa-file-alt"></i> Material de Apoio</h3>
-                    <p>Acesse guias, tutoriais e recursos adicionais para aprofundar seus conhecimentos.</p>
-                    <a href="interatividade_material.html#apoio" class="btn">Ver Material</a>
+                    <h3>
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                        Material de Apoio
+                    </h3>
+                    <p>Acesse guias, tutoriais e recursos adicionais para aprofundar seus conhecimentos em Python, desde conceitos básicos até técnicas avançadas.</p>
+                    <a href="estruturas_dados.html" class="btn">Ver Material</a>
                 </div>
+                
                 <div class="card">
-                    <h3><i class="fas fa-file-pdf"></i> Guia em PDF</h3>
-                    <p>Baixe nosso guia completo em formato PDF para consulta offline.</p>
+                    <h3>
+                        <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                        Guia em PDF
+                    </h3>
+                    <p>Baixe nosso guia completo em formato PDF para consulta offline. Um recurso valioso para estudar em qualquer lugar, mesmo sem conexão à internet.</p>
                     <a href="assets/docs/guia_python_estruturas_reestilizado.pdf" class="btn" download>Baixar PDF</a>
                 </div>
+                
                 <div class="card">
-                    <h3><i class="fas fa-laptop-code"></i> Projetos Práticos</h3>
-                    <p>Aprenda na prática com projetos reais e exemplos de código.</p>
-                    <a href="interatividade_material.html#interativo" class="btn">Ver Projetos</a>
+                    <h3>
+                        <i class="fas fa-laptop-code" aria-hidden="true"></i>
+                        Playground Interativo
+                    </h3>
+                    <p>Experimente código Python diretamente no navegador, sem necessidade de instalação. Teste seus conhecimentos e pratique em tempo real.</p>
+                    <a href="interatividade_material.html" class="btn">Experimentar</a>
                 </div>
             </div>
         </section>
-    </main>
 
-    <footer class="footer">
+        <!-- Depoimentos -->
+        <section id="depoimentos" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-comment-dots" aria-hidden="true"></i>
+                O Que Dizem Nossos Participantes
+            </h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="testimonial-avatar" aria-hidden="true">C</div>
+                    <blockquote>
+                        <p>Este guia de Python mudou minha forma de aprender programação. Comecei sem nenhum conhecimento e agora consigo criar meus próprios projetos. A linguagem clara e os exemplos práticos fizeram toda a diferença.</p>
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <h4>Carlos Silva</h4>
+                        <p>Estudante de Tecnologia</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="testimonial-avatar" aria-hidden="true">A</div>
+                    <blockquote>
+                        <p>A abordagem prática e os exemplos claros tornaram o aprendizado muito mais fácil. O playground interativo é fantástico para testar conceitos em tempo real sem precisar instalar nada no computador.</p>
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <h4>Ana Oliveira</h4>
+                        <p>Iniciante em Programação</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="testimonial-avatar" aria-hidden="true">M</div>
+                    <blockquote>
+                        <p>Como voluntário em projetos sociais, uso este material para ensinar programação em comunidades. A estrutura lógica e a progressão dos tópicos são perfeitas para quem está começando a programar.</p>
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <h4>Marcos Santos</h4>
+                        <p>Voluntário em Inclusão Digital</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chamada para Ação -->
+        <section id="comecar" class="section animate-on-scroll">
+            <h2>
+                <i class="fas fa-flag-checkered" aria-hidden="true"></i>
+                Pronto para Começar?
+            </h2>
+            <p>Dê o primeiro passo na sua jornada de aprendizado Python. Acesse nosso material completo, pratique no playground interativo e conecte-se com a comunidade.</p>
+            <div class="cta-buttons">
+                <a href="estruturas_dados.html" class="btn btn-accent">Iniciar Agora</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
         <div class="footer-content">
-            <div class="footer-logo">🐍</div>
-            <p>Aprenda Python de forma interativa e prática</p>
+            <div class="footer-logo" aria-hidden="true">🐍</div>
+            <p>Python Tutorial - Um projeto social para facilitar o aprendizado de programação</p>
+            
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/juan-mendes-739084273" target="_blank" class="social-link">
-                    <i class="fab fa-linkedin social-icon"></i> LinkedIn
+                <a href="https://www.linkedin.com/in/juan-mendes-739084273" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin social-icon" aria-hidden="true"></i>
+                    <span>LinkedIn</span>
                 </a>
-                <a href="https://github.com/juanmmendes" target="_blank" class="social-link">
-                    <i class="fab fa-github social-icon"></i> GitHub
-                </a>
-                <a href="https://www.python.org/" target="_blank" class="social-link">
-                    <i class="fas fa-globe social-icon"></i> Python.org
+                <a href="https://github.com/juanmmendes" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github social-icon" aria-hidden="true"></i>
+                    <span>GitHub</span>
                 </a>
             </div>
-            <div class="footer-nav">
+            
+            <nav class="footer-nav" aria-label="Menu do rodapé">
                 <a href="index.html">Página Inicial</a>
                 <a href="estruturas_dados.html">Estruturas de Dados</a>
                 <a href="interatividade_material.html">Interatividade</a>
                 <a href="comunidades.html">Comunidades</a>
-            </div>
+            </nav>
+            
             <div class="footer-bottom">
-                &copy; 2025 • Python Tutorial - Guia Completo • Desenvolvido por Juan Mendes
+                <p>&copy; 2025 Python Tutorial. Desenvolvido por Juan Mendes.</p>
             </div>
         </div>
     </footer>
 
     <script src="js/common.js"></script>
+    <script src="js/navigation.js"></script>
 </body>
 </html>
 
