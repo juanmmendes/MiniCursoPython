@@ -1,0 +1,78 @@
+/* Footer Styles */
+.footer {
+    background: linear-gradient(135deg, #0f3460, #16213e);
+    color: #e0e0e0;
+    padding: 40px 0;
+    text-align: center;
+    border-top: 5px solid #e94560;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-logo {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #e94560;
+}
+
+.footer p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #a0a0a0;
+}
+
+.social-links {
+    margin-bottom: 25px;
+}
+
+.social-link {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.1em;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.social-link:hover {
+    color: #e94560;
+    transform: translateY(-3px);
+}
+
+.social-icon {
+    font-size: 1.5em;
+    margin-right: 8px;
+}
+
+.footer-nav {
+    margin-bottom: 25px;
+}
+
+.footer-nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1em;
+    margin: 0 12px;
+    transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+    color: #e94560;
+}
+
+.footer-bottom {
+    border-top: 1px solid #30363d;
+    padding-top: 20px;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #808080;
+}
+
+
